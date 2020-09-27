@@ -8,18 +8,24 @@ func main() {
     Log.logger = logger
 
     print("Hello, ouverture!")
+    test1()
     test2()
 }
 
 func test1() {
-    let ext = "txt"
-    Preferences.getUtiString(for: ext)
-    Preferences.getDefault(for: ext)
+    let ext = "rs"
+    Preferences.getUtiString(forExt: ext)
+    Preferences.getDefault(forExt: ext)
+    Preferences.getCandidates(forExt: ext)
 }
 
 func test2() {
-    let dir = "Mock"
-    Preferences.readSupportedFileTypesFromPlist(fromApp: dir)
+    let apps = ["Mock/IINA.app", "Mock/Music.app", "Mock/Safari.app"]
+    for app in apps {
+        Preferences.readSupportedFileTypesFromBundle(app)
+        Preferences.readSupportedFileExtensionsFromBundle(app)
+        Preferences.readSupportedUrlSchemesFromBundle(app)
+    }
 }
 
 main()
