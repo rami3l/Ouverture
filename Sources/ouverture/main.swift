@@ -1,18 +1,25 @@
+import HeliumLogger
+import LoggerAPI
+
 func main() {
+    // Enable logger.
+    let logger = HeliumLogger(.verbose)
+    logger.colored = true
+    Log.logger = logger
+
     print("Hello, ouverture!")
     test2()
 }
 
 func test1() {
     let ext = "txt"
-    print("The pref uti for \(ext) is:\t\(Preferences.getUtiString(for: ext))")
-    print("The default opener for \(ext) is:\t\(Preferences.getDefault(for: ext))")
+    Preferences.getUtiString(for: ext)
+    Preferences.getDefault(for: ext)
 }
 
 func test2() {
     let dir = "Mock"
-    let types = Preferences.readSupportedFileTypesFromPlist(dir: dir)
-    print(types)
+    Preferences.readSupportedFileTypesFromPlist(fromApp: dir)
 }
 
 main()

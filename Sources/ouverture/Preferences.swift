@@ -1,59 +1,64 @@
 import CoreServices.LaunchServices
 import Foundation
+import LoggerAPI
 
 enum Preferences {}
 
 extension Preferences {
-    static func getUtiString(for ext: String) -> CFString {
-        return UTTypeCreatePreferredIdentifierForTag(
+    static func getUtiString(for ext: String) -> CFString? {
+        let res = UTTypeCreatePreferredIdentifierForTag(
             kUTTagClassFilenameExtension,
             ext as CFString,
             nil
-        )!.takeUnretainedValue()
+        )?.takeUnretainedValue()
+        Log.verbose("The preferred UTI for extention `\(ext) is `\(res as String? ?? "Unknown")`")
+        return res
     }
 
     static func getDefault(for ext: String) -> CFString? {
-        return LSCopyDefaultRoleHandlerForContentType(
-            getUtiString(for: ext),
-            .all
-        )?.takeUnretainedValue()
+        guard let uti = getUtiString(for: ext) else { return nil }
+        let res = LSCopyDefaultRoleHandlerForContentType(uti, .all)?.takeUnretainedValue()
+        Log.verbose("The default handler for extention `\(ext) is `\(res as String? ?? "Unknown")`")
+        return res
     }
 
     static func setDefault(
         for ext: String,
         as cfBundleId: CFString
     ) -> Bool {
-        return kOSReturnSuccess
-            == LSSetDefaultRoleHandlerForContentType(
-                getUtiString(for: ext),
-                .all,
-                cfBundleId
-            )
+        Log.verbose("Setting default handler for extention `\(ext) to `\(cfBundleId)`")
+        guard let uti = getUtiString(for: ext) else { return false }
+        let res =
+            kOSReturnSuccess
+            == LSSetDefaultRoleHandlerForContentType(uti, .all, cfBundleId)
+        Log.verbose("Setting default handler " + (res ? "success" : "failed"))
+        return res
     }
 
     static func readSupportedFileTypesFromPlist(
-        dir: String,
+        fromApp appDir: String,
         file: String = "Contents/Info.plist"
     ) -> [String]? {
-        guard #available(macOS 10.11, *) else {
-            return nil
-        }
+        guard #available(macOS 10.11, *) else { return nil }
 
-        let dir = URL.init(fileURLWithPath: dir, isDirectory: true)
-        let plistUrl = URL.init(fileURLWithPath: file, relativeTo: dir)
-        print("set plist to \(plistUrl.absoluteString)")
+        Log.verbose("Getting supported file types for \(appDir)")
+        let appUrl = URL.init(fileURLWithPath: appDir, isDirectory: true)
+        let plistUrl = URL.init(fileURLWithPath: file, relativeTo: appUrl)
+
+        let plistAbsPath = plistUrl.absoluteURL.path
+        Log.verbose("Reading plist at \(plistAbsPath)")
 
         guard
-            let plistDict = Plist.readToDict(from: plistUrl.absoluteURL.path)
+            let plistDict = Plist.readToDict(from: plistAbsPath)
         else {
-            print("Unable to read plist")
+            Log.error("Unable to read plist at \(plistAbsPath)")
             return nil
         }
 
         guard
             let dicts = plistDict["CFBundleDocumentTypes"] as? [[String: Any]]
         else {
-            print("Unable to read CFBundleDocumentTypes")
+            Log.error("Unable to read `CFBundleDocumentTypes` from plist")
             return nil
         }
 
@@ -64,6 +69,7 @@ extension Preferences {
             }
         }
 
+        Log.verbose("Got supported file types: \n\(res)")
         return res
     }
 }
