@@ -22,7 +22,7 @@ func test1() {
 }
 
 func test2() {
-    let apps = ["Mock/IINA.app", "Mock/Music.app", "Mock/Safari.app"]
+    let apps = ["Mock/IINA.app"]
     for app in apps {
         BundleUtils.readSupportedFileTypesFromBundle(app)
         BundleUtils.readSupportedFileExtensionsFromBundle(app)
