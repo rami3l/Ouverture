@@ -1,7 +1,6 @@
+import OuvertureTests
 import XCTest
 
-import ouvertureTests
-
 var tests = [XCTestCaseEntry]()
-tests += ouvertureTests.allTests()
+tests += OuvertureTests.allTests()
 XCTMain(tests)

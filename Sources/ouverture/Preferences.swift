@@ -44,7 +44,7 @@ func getDefaultHandler(forUrlScheme urlScheme: CFString) -> CFString? {
     return res
 }
 
-func getCandidateHandlers(forUti uti: CFString) -> [CFString]? {
+func getHandlerCandidates(forUti uti: CFString) -> [CFString]? {
     let res =
         LSCopyAllRoleHandlersForContentType(uti, .all)?.takeUnretainedValue()
         as? [CFString]
@@ -54,17 +54,17 @@ func getCandidateHandlers(forUti uti: CFString) -> [CFString]? {
     return res
 }
 
-func getCandidateHandlers(
+func getHandlerCandidates(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
 ) -> [CFString]? {
     guard let uti = getUtiString(forExt: ext, conformingTo: parentUti) else {
         return nil
     }
-    return getCandidateHandlers(forUti: uti)
+    return getHandlerCandidates(forUti: uti)
 }
 
-func getCandidateHandlers(forUrlScheme urlScheme: CFString) -> [CFString]? {
+func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [CFString]? {
     let res =
         LSCopyAllHandlersForURLScheme(urlScheme)?.takeUnretainedValue()
         as? [CFString]

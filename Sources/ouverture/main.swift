@@ -8,7 +8,7 @@ func main() {
     logger.colored = true
     Log.logger = logger
 
-    print("Hello, ouverture!")
+    print("Hello, Ouverture!")
     test1()
     test2()
     test3()
@@ -18,7 +18,7 @@ func test1() {
     let ext = "rs"
     getUtiString(forExt: ext)
     getDefaultHandler(forExt: ext)
-    getCandidateHandlers(forExt: ext)
+    getHandlerCandidates(forExt: ext)
 }
 
 func test2() {
