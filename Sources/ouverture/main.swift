@@ -16,23 +16,23 @@ func main() {
 
 func test1() {
     let ext = "rs"
-    Preferences.getUtiString(forExt: ext)
-    Preferences.getDefault(forExt: ext)
-    Preferences.getCandidates(forExt: ext)
+    getUtiString(forExt: ext)
+    getDefaultHandler(forExt: ext)
+    getCandidateHandlers(forExt: ext)
 }
 
 func test2() {
     let apps = ["Mock/IINA.app"]
     for app in apps {
-        BundleUtils.readSupportedFileTypesFromBundle(app)
-        BundleUtils.readSupportedFileExtensionsFromBundle(app)
-        BundleUtils.readSupportedUrlSchemesFromBundle(app)
+        readSupportedFileTypesFromBundle(app)
+        readSupportedFileExtensionsFromBundle(app)
+        readSupportedUrlSchemesFromBundle(app)
     }
 }
 
 func test3() {
     let app = "com.apple.TextEdit"
-    BundleUtils.getBundleUrlCandidates(from: app as CFString)
+    getBundleUrlCandidates(from: app as CFString)
 }
 
 main()
