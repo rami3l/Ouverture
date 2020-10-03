@@ -17,6 +17,11 @@ let package = Package(
             url: "https://github.com/IBM-Swift/LoggerAPI.git",
             from: "1.9.0"
         ),
+        .package(
+            name: "swift-argument-parser",
+            url: "https://github.com/apple/swift-argument-parser",
+            from: "0.3.1"
+        ),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -24,7 +29,16 @@ let package = Package(
         .target(
             name: "Ouverture",
             dependencies: ["HeliumLogger", "LoggerAPI"]
-        ), .target(name: "ovt", dependencies: ["Ouverture"]),
-        .testTarget(name: "OuvertureTests", dependencies: ["Ouverture"]),
+        ),
+        .target(
+            name: "ovt",
+            dependencies: [
+                "Ouverture",
+                .product(
+                    name: "ArgumentParser",
+                    package: "swift-argument-parser"
+                ),
+            ]
+        ), .testTarget(name: "OuvertureTests", dependencies: ["Ouverture"]),
     ]
 )

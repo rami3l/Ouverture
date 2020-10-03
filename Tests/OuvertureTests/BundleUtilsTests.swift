@@ -36,4 +36,9 @@ extension OuvertureTests {
         let uscs = readSupportedUrlSchemesFromBundle(app)!
         XCTAssert(uscs.contains { $0 == "iina" })
     }
+
+    func testIsBundleId() throws {
+        XCTAssert(isBundleId("com.apple.TextEdit"))
+        XCTAssert(!isBundleId("/System/Applications/TextEdit.app"))
+    }
 }

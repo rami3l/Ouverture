@@ -13,9 +13,9 @@ public func getBundleUrlCandidates(from bundleId: CFString) -> [NSURL]? {
 }
 
 public func getBundleUrl(from bundleId: CFString) -> NSURL? {
-    guard #available(macOS 10.15, *) else {
-        Log.error("Function available in macOS 10.15+ only")
-        return nil
+    if #available(macOS 10.15, *) {
+    } else {
+        Log.error("The result is optimal for macOS 10.15+ only")
     }
 
     let candidates = getBundleUrlCandidates(from: bundleId)
@@ -55,7 +55,7 @@ private func readInfoFromBundle(
     file: String = "Contents/Info.plist",
     key: String,
     subkey: String
-) -> Set<String>? {
+) -> [String]? {
     guard #available(macOS 10.11, *) else {
         Log.error("Function available in macOS 10.11+ only")
         return nil
@@ -79,7 +79,7 @@ private func readInfoFromBundle(
     }
 
     let res = dicts.map { $0[subkey] as? [String] ?? [] }
-        .reduce(Set<String>()) { $0.union($1) }
+        .reduce(Set<String>()) { $0.union($1) }.sorted()
 
     Log.verbose("Got `\(subkey)`: \n\(res)")
     return res
@@ -88,7 +88,7 @@ private func readInfoFromBundle(
 public func readSupportedFileTypesFromBundle(
     _ appDir: String,
     file: String = "Contents/Info.plist"
-) -> Set<String>? {
+) -> [String]? {
     return readInfoFromBundle(
         appDir,
         file: file,
@@ -100,7 +100,7 @@ public func readSupportedFileTypesFromBundle(
 public func readSupportedFileExtensionsFromBundle(
     _ appDir: String,
     file: String = "Contents/Info.plist"
-) -> Set<String>? {
+) -> [String]? {
     return readInfoFromBundle(
         appDir,
         file: file,
@@ -112,7 +112,7 @@ public func readSupportedFileExtensionsFromBundle(
 public func readSupportedUrlSchemesFromBundle(
     _ appDir: String,
     file: String = "Contents/Info.plist"
-) -> Set<String>? {
+) -> [String]? {
     return readInfoFromBundle(
         appDir,
         file: file,
