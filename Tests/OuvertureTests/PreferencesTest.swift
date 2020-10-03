@@ -3,7 +3,7 @@
 import XCTest
 
 // import class Foundation.Bundle
-@testable import OuvertureLib
+@testable import Ouverture
 
 extension OuvertureTests {
     func testGetUtiString() throws {

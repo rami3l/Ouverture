@@ -3,6 +3,6 @@
 import XCTest
 
 // import class Foundation.Bundle
-// @testable import OuvertureLib
+// @testable import Ouverture
 
 final class OuvertureTests: XCTestCase {}

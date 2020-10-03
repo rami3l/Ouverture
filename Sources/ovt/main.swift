@@ -2,7 +2,7 @@ import CoreFoundation
 import Foundation
 import HeliumLogger
 import LoggerAPI
-import OuvertureLib
+import Ouverture
 
 func main() {
     // Enable logger.
