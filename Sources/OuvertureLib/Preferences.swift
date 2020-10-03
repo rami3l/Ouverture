@@ -1,3 +1,4 @@
+import CoreFoundation
 import CoreServices.LaunchServices
 import Foundation
 import LoggerAPI
@@ -44,10 +45,10 @@ func getDefaultHandler(forUrlScheme urlScheme: CFString) -> CFString? {
     return res
 }
 
-func getHandlerCandidates(forUti uti: CFString) -> [CFString]? {
+func getHandlerCandidates(forUti uti: CFString) -> [NSURL]? {
     let res =
         LSCopyAllRoleHandlersForContentType(uti, .all)?.takeUnretainedValue()
-        as? [CFString]
+        as? [NSURL]
     Log.verbose(
         "The handler candidates for UTI `\(uti)` are:\n`\(String(describing: res))`"
     )
@@ -57,17 +58,17 @@ func getHandlerCandidates(forUti uti: CFString) -> [CFString]? {
 func getHandlerCandidates(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
-) -> [CFString]? {
+) -> [NSURL]? {
     guard let uti = getUtiString(forExt: ext, conformingTo: parentUti) else {
         return nil
     }
     return getHandlerCandidates(forUti: uti)
 }
 
-func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [CFString]? {
+func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [NSURL]? {
     let res =
         LSCopyAllHandlersForURLScheme(urlScheme)?.takeUnretainedValue()
-        as? [CFString]
+        as? [NSURL]
     Log.verbose(
         "The handler candidates for URL Scheme `\(urlScheme)` are:\n`\(String(describing: res))`"
     )

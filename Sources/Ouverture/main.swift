@@ -1,6 +1,8 @@
 import CoreFoundation
+import Foundation
 import HeliumLogger
 import LoggerAPI
+import OuvertureLib
 
 func main() {
     // Enable logger.
@@ -9,11 +11,9 @@ func main() {
     Log.logger = logger
 
     print("Hello, Ouverture!")
-    test1()
-    test2()
-    test3()
 }
 
+/*
 func test1() {
     let ext = "rs"
     getUtiString(forExt: ext)
@@ -29,10 +29,6 @@ func test2() {
         readSupportedUrlSchemesFromBundle(app)
     }
 }
-
-func test3() {
-    let app = "com.apple.TextEdit"
-    getBundleUrlCandidates(from: app as CFString)
-}
+*/
 
 main()

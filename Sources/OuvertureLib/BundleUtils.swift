@@ -2,17 +2,17 @@ import CoreServices.LaunchServices
 import Foundation
 import LoggerAPI
 
-func getBundleUrlCandidates(from bundleId: CFString) -> [CFString]? {
+public func getBundleUrlCandidates(from bundleId: CFString) -> [NSURL]? {
     let res =
         LSCopyApplicationURLsForBundleIdentifier(bundleId, nil)?
-        .takeUnretainedValue() as? [CFString]
+        .takeUnretainedValue() as? [NSURL]
     Log.verbose(
         "The URL candidates for bundle `\(bundleId)` are:\n`\(String(describing: res))`"
     )
     return res
 }
 
-func getBestBundleUrl(from bundleId: CFString) -> CFString? {
+public func getBestBundleUrl(from bundleId: CFString) -> NSURL? {
     guard #available(macOS 10.15, *) else {
         Log.error("Function available in macOS 10.15+ only")
         return nil
@@ -21,7 +21,7 @@ func getBestBundleUrl(from bundleId: CFString) -> CFString? {
     let candidates = getBundleUrlCandidates(from: bundleId)
     let res = candidates?[0]
     Log.verbose(
-        "The best URL for bundle `\(bundleId)` is: `\(res as String? ?? "Unknown")`"
+        "The best URL for bundle `\(bundleId)` is: `\(res?.absoluteString ?? "Unknown")`"
     )
     return res
 }
