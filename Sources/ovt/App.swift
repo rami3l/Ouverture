@@ -50,17 +50,17 @@ extension Ovt {
             let tys = readSupportedFileTypesFromBundle(appDir)
             if tys != nil {
                 nothing = false
-                printColumns(title: "File Types", tys!)
+                printColumnsWithWidth(title: "File Types", tys!)
             }
             let exts = readSupportedFileExtensionsFromBundle(appDir)
             if exts != nil {
                 nothing = false
-                printColumns(title: "File Extensions", exts!)
+                printColumnsWithWidth(title: "File Extensions", exts!)
             }
             let scms = readSupportedUrlSchemesFromBundle(appDir)
             if scms != nil {
                 nothing = false
-                printColumns(title: "URL Schemes", scms!)
+                printColumnsWithWidth(title: "URL Schemes", scms!)
             }
             if nothing { print("(Nothing to print)") }
         }

@@ -6,8 +6,9 @@
     },
     "maximumBlankLines": 1,
     "respectsExistingLineBreaks": false,
-    "lineBreakBeforeControlFlowKeywords": false,
+    "lineBreakBeforeControlFlowKeywords": true,
     "lineBreakBeforeEachArgument": true,
     "lineBreakAroundMultilineExpressionChainComponents": true,
     "lineBreakBeforeControlFlowKeywords": true,
+    "prioritizeKeepingFunctionOutputTogether": true,
 }
