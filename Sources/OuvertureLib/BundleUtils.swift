@@ -12,7 +12,7 @@ public func getBundleUrlCandidates(from bundleId: CFString) -> [NSURL]? {
     return res
 }
 
-public func getBestBundleUrl(from bundleId: CFString) -> NSURL? {
+public func getBundleUrl(from bundleId: CFString) -> NSURL? {
     guard #available(macOS 10.15, *) else {
         Log.error("Function available in macOS 10.15+ only")
         return nil
@@ -26,7 +26,31 @@ public func getBestBundleUrl(from bundleId: CFString) -> NSURL? {
     return res
 }
 
-func readInfoFromBundle(
+public func getBundleId(
+    from appDir: String,
+    file: String = "Contents/Info.plist"
+) -> String? {
+    guard #available(macOS 10.11, *) else {
+        Log.error("Function available in macOS 10.11+ only")
+        return nil
+    }
+
+    Log.verbose("Getting `Info.plist` for `\(appDir)`")
+    let appUrl = URL.init(fileURLWithPath: appDir, isDirectory: true)
+    let plistUrl = URL.init(fileURLWithPath: file, relativeTo: appUrl)
+
+    let plistAbsPath = plistUrl.absoluteURL.path
+    Log.verbose("Reading plist at \(plistAbsPath)")
+
+    guard let plistDict = readPlistToDict(from: plistAbsPath) else {
+        Log.error("Unable to read plist at \(plistAbsPath)")
+        return nil
+    }
+
+    return plistDict["CFBundleIdentifier"] as? String
+}
+
+private func readInfoFromBundle(
     _ appDir: String,
     file: String = "Contents/Info.plist",
     key: String,
@@ -61,7 +85,7 @@ func readInfoFromBundle(
     return res
 }
 
-func readSupportedFileTypesFromBundle(
+public func readSupportedFileTypesFromBundle(
     _ appDir: String,
     file: String = "Contents/Info.plist"
 ) -> Set<String>? {
@@ -73,7 +97,7 @@ func readSupportedFileTypesFromBundle(
     )
 }
 
-func readSupportedFileExtensionsFromBundle(
+public func readSupportedFileExtensionsFromBundle(
     _ appDir: String,
     file: String = "Contents/Info.plist"
 ) -> Set<String>? {
@@ -85,7 +109,7 @@ func readSupportedFileExtensionsFromBundle(
     )
 }
 
-func readSupportedUrlSchemesFromBundle(
+public func readSupportedUrlSchemesFromBundle(
     _ appDir: String,
     file: String = "Contents/Info.plist"
 ) -> Set<String>? {

@@ -15,10 +15,16 @@ extension OuvertureTests {
         )
     }
 
-    func testBestGetBundleUrl() throws {
+    func testGetBundleUrl() throws {
         let app = "com.apple.TextEdit"
-        let path = getBestBundleUrl(from: app as CFString)!.absoluteString!
+        let path = getBundleUrl(from: app as CFString)!.absoluteString!
         XCTAssert(path.contains("TextEdit.app"))
+    }
+
+    func testGetBundleId() throws {
+        let app = "com.apple.TextEdit"
+        let appDir = "/System/Applications/TextEdit.app"
+        XCTAssertEqual(getBundleId(from: appDir), app)
     }
 
     func testReadInfoFromBundle() throws {

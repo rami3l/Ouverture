@@ -3,9 +3,10 @@ import CoreServices.LaunchServices
 import Foundation
 import LoggerAPI
 
-func getUtiString(forExt ext: String, conformingTo parentUti: CFString? = nil)
-    -> CFString?
-{
+public func getUtiString(
+    forExt ext: String,
+    conformingTo parentUti: CFString? = nil
+) -> CFString? {
     let res = UTTypeCreatePreferredIdentifierForTag(
         kUTTagClassFilenameExtension,
         ext as CFString,
@@ -18,7 +19,7 @@ func getUtiString(forExt ext: String, conformingTo parentUti: CFString? = nil)
     return res
 }
 
-func getDefaultHandler(forUti uti: CFString) -> CFString? {
+public func getDefaultHandler(forUti uti: CFString) -> CFString? {
     let res = LSCopyDefaultRoleHandlerForContentType(uti, .all)?
         .takeUnretainedValue()
     Log.verbose(
@@ -28,7 +29,7 @@ func getDefaultHandler(forUti uti: CFString) -> CFString? {
 }
 
 /// Get the default handler for a file type in the form of BundleID (eg. com.apple.TextEdit).
-func getDefaultHandler(
+public func getDefaultHandler(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
 ) -> CFString? {
@@ -39,7 +40,7 @@ func getDefaultHandler(
 }
 
 /// Get the default handler for a file type in the form of BundleID (eg. com.apple.TextEdit).
-func getDefaultHandler(forUrlScheme urlScheme: CFString) -> CFString? {
+public func getDefaultHandler(forUrlScheme urlScheme: CFString) -> CFString? {
     let res = LSCopyDefaultHandlerForURLScheme(urlScheme)?.takeUnretainedValue()
     Log.verbose(
         "The default handler for URL Scheme `\(urlScheme)` is `\(res as String? ?? "Unknown")`"
@@ -48,7 +49,7 @@ func getDefaultHandler(forUrlScheme urlScheme: CFString) -> CFString? {
 }
 
 /// Get the possible handlers for a file type in the form of Bundle URL.
-func getHandlerCandidates(forUti uti: CFString) -> [NSURL]? {
+public func getHandlerCandidates(forUti uti: CFString) -> [NSURL]? {
     let res =
         LSCopyAllRoleHandlersForContentType(uti, .all)?.takeUnretainedValue()
         as? [NSURL]
@@ -59,7 +60,7 @@ func getHandlerCandidates(forUti uti: CFString) -> [NSURL]? {
 }
 
 /// Get the possible handlers for a file type in the form of Bundle URL.
-func getHandlerCandidates(
+public func getHandlerCandidates(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
 ) -> [NSURL]? {
@@ -70,7 +71,7 @@ func getHandlerCandidates(
 }
 
 /// Get the possible handlers for a URL scheme in the form of Bundle URL.
-func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [NSURL]? {
+public func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [NSURL]? {
     let res =
         LSCopyAllHandlersForURLScheme(urlScheme)?.takeUnretainedValue()
         as? [NSURL]
@@ -80,7 +81,9 @@ func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [NSURL]? {
     return res
 }
 
-func setDefaultHandler(forUti uti: CFString, to bundleId: CFString) -> Bool {
+public func setDefaultHandler(forUti uti: CFString, to bundleId: CFString)
+    -> Bool
+{
     Log.verbose("Setting default handler for UTI `\(uti) to `\(bundleId)`")
     let res =
         kOSReturnSuccess
@@ -89,7 +92,7 @@ func setDefaultHandler(forUti uti: CFString, to bundleId: CFString) -> Bool {
     return res
 }
 
-func setDefaultHandler(
+public func setDefaultHandler(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil,
     to bundleId: CFString
@@ -103,9 +106,10 @@ func setDefaultHandler(
     return setDefaultHandler(forUti: uti, to: bundleId)
 }
 
-func setDefaultHandler(forUrlScheme urlScheme: CFString, to bundleId: CFString)
-    -> Bool
-{
+public func setDefaultHandler(
+    forUrlScheme urlScheme: CFString,
+    to bundleId: CFString
+) -> Bool {
     Log.verbose(
         "Setting default handler for URL Scheme `\(urlScheme) to `\(bundleId)`"
     )
