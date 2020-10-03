@@ -7,8 +7,13 @@ import XCTest
 
 extension OuvertureTests {
     func testGetUtiString() throws {
-        let txtUti = getUtiString(forExt: "txt")! as String
-        XCTAssertEqual(txtUti, "public.plain-text")
+        func uti(_ ext: String, _ parent: String? = nil) -> String {
+            return getUtiString(forExt: ext, conformingTo: parent as CFString?)!
+                as String
+        }
+        XCTAssertEqual(uti("txt"), "public.plain-text")
+        XCTAssertEqual(uti("rs"), "dyn.age81e62")
+        XCTAssertEqual(uti("rs", "public.plain-text"), "dyn.ah62d4sb4ge81e62")
     }
 
     func testGetDefaultHandler() throws {

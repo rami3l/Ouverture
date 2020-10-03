@@ -13,22 +13,4 @@ func main() {
     print("Hello, Ouverture!")
 }
 
-/*
-func test1() {
-    let ext = "rs"
-    getUtiString(forExt: ext)
-    getDefaultHandler(forExt: ext)
-    getHandlerCandidates(forExt: ext)
-}
-
-func test2() {
-    let apps = ["Mock/IINA.app"]
-    for app in apps {
-        readSupportedFileTypesFromBundle(app)
-        readSupportedFileExtensionsFromBundle(app)
-        readSupportedUrlSchemesFromBundle(app)
-    }
-}
-*/
-
 main()

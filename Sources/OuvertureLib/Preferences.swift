@@ -13,9 +13,15 @@ public func getUtiString(
         parentUti
     )?
     .takeUnretainedValue()
-    Log.verbose(
-        "The preferred UTI for extention `\(ext)` is `\(res as String? ?? "Unknown")`"
-    )
+    if parentUti != nil {
+        Log.verbose(
+            "The UTI for extention `\(ext)` under `\(parentUti!)` is `\(res as String? ?? "Unknown")`"
+        )
+    } else {
+        Log.verbose(
+            "The preferred UTI for extention `\(ext)` is `\(res as String? ?? "Unknown")`"
+        )
+    }
     return res
 }
 
