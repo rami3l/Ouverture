@@ -96,3 +96,11 @@ func readSupportedUrlSchemesFromBundle(
         subkey: "CFBundleURLSchemes"
     )
 }
+
+// Check if a String is a reverse domain name BundleID.
+public func isBundleId(_ s: String) -> Bool {
+    return s.range(
+        of: #"^[a-z]{2,}(\.[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)+"#,
+        options: .regularExpression
+    ) != nil
+}

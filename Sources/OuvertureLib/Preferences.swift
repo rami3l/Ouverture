@@ -27,6 +27,7 @@ func getDefaultHandler(forUti uti: CFString) -> CFString? {
     return res
 }
 
+/// Get the default handler for a file type in the form of BundleID (eg. com.apple.TextEdit).
 func getDefaultHandler(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
@@ -37,6 +38,7 @@ func getDefaultHandler(
     return getDefaultHandler(forUti: uti)
 }
 
+/// Get the default handler for a file type in the form of BundleID (eg. com.apple.TextEdit).
 func getDefaultHandler(forUrlScheme urlScheme: CFString) -> CFString? {
     let res = LSCopyDefaultHandlerForURLScheme(urlScheme)?.takeUnretainedValue()
     Log.verbose(
@@ -45,6 +47,7 @@ func getDefaultHandler(forUrlScheme urlScheme: CFString) -> CFString? {
     return res
 }
 
+/// Get the possible handlers for a file type in the form of Bundle URL.
 func getHandlerCandidates(forUti uti: CFString) -> [NSURL]? {
     let res =
         LSCopyAllRoleHandlersForContentType(uti, .all)?.takeUnretainedValue()
@@ -55,6 +58,7 @@ func getHandlerCandidates(forUti uti: CFString) -> [NSURL]? {
     return res
 }
 
+/// Get the possible handlers for a file type in the form of Bundle URL.
 func getHandlerCandidates(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
@@ -65,6 +69,7 @@ func getHandlerCandidates(
     return getHandlerCandidates(forUti: uti)
 }
 
+/// Get the possible handlers for a URL scheme in the form of Bundle URL.
 func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [NSURL]? {
     let res =
         LSCopyAllHandlersForURLScheme(urlScheme)?.takeUnretainedValue()
