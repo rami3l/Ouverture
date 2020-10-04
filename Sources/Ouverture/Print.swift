@@ -18,7 +18,7 @@ public func printColumns(
             repeating: [String](repeating: "", count: columnCount),
             count: lineCount
         )
-        for (n, word) in words.enumerated() {
+        words.enumerated().forEach { (n, word) in
             let (ln, col) = n.quotientAndRemainder(dividingBy: columnCount)
             res[ln][col] = word
         }
