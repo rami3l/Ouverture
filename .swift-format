@@ -8,7 +8,7 @@
     "respectsExistingLineBreaks": false,
     "lineBreakBeforeControlFlowKeywords": true,
     "lineBreakBeforeEachArgument": true,
-    "lineBreakAroundMultilineExpressionChainComponents": true,
+    "lineBreakAroundMultilineExpressionChainComponents": false,
     "lineBreakBeforeControlFlowKeywords": true,
     "prioritizeKeepingFunctionOutputTogether": true,
 }

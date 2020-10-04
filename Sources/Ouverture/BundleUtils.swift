@@ -79,8 +79,8 @@ private func readInfoFromBundle(
         return nil
     }
 
-    let res = dicts.map { $0[subkey] as? [String] ?? [] }
-        .reduce(Set<String>()) { $0.union($1) }.sorted()
+    let res = dicts.map { $0[subkey] as? [String] ?? [] }.reduce(Set<String>())
+    { $0.union($1) }.sorted()
 
     Log.verbose("Got `\(subkey)`: \n\(res)")
     return res

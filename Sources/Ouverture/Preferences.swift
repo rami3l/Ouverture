@@ -11,8 +11,7 @@ public func getUtiString(
         kUTTagClassFilenameExtension,
         ext as CFString,
         parentUti
-    )?
-    .takeUnretainedValue()
+    )?.takeUnretainedValue()
     if parentUti != nil {
         Log.verbose(
             "The UTI for extention `\(ext)` under `\(parentUti!)` is `\(res as String? ?? "Unknown")`"

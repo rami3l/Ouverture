@@ -24,25 +24,18 @@ public func printColumns(
         }
         return res
     }()
-    let maxLen = (0..<columnCount)
-        .map { col in matrix.map { $0[col].count }.max()! }
+    let maxLen = (0..<columnCount).map { col in
+        matrix.map { $0[col].count }.max()!
+    }
     let blockLen = maxLen.map { $0 + gapCount }
-    matrix.enumerated()
-        .forEach { (ln, ws) in
-            ws.enumerated()
-                .forEach { (col, w) in
-                    let end = col == columnCount - 1 ? "\n" : ""
-                    print(
-                        matrix[ln][col]
-                            .padding(
-                                toLength: blockLen[col],
-                                withPad: " ",
-                                startingAt: 0
-                            ),
-                        terminator: end
-                    )
-                }
+    matrix.enumerated().forEach { (ln, ws) in
+        ws.enumerated().forEach { (col, w) in
+            print(
+                w.padding(toLength: blockLen[col], withPad: " ", startingAt: 0),
+                terminator: col == columnCount - 1 ? "\n" : ""
+            )
         }
+    }
 
     print()
 }
