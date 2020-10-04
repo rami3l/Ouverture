@@ -22,7 +22,7 @@ public func getBundleUrl(from bundleId: CFString) -> NSURL? {
     let candidates = getBundleUrlCandidates(from: bundleId)
     let res = candidates?[0]
     Log.verbose(
-        "The best URL for bundle `\(bundleId)` is: `\(res?.absoluteString ?? "Unknown")`"
+        "The best URL for bundle `\(bundleId)` is: `\(res?.absoluteURL?.path ?? "Unknown")`"
     )
     return res
 }

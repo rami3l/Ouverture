@@ -9,7 +9,7 @@ extension OuvertureTests {
     func testGetBundleUrlCandidates() throws {
         let app = "com.apple.TextEdit"
         let paths = getBundleUrlCandidates(from: app as CFString)!.map {
-            $0.absoluteString!
+            $0.absoluteURL!.path
         }
         XCTAssert(
             paths.contains { $0.contains("/System/Applications/TextEdit.app") }
@@ -18,7 +18,8 @@ extension OuvertureTests {
 
     func testGetBundleUrl() throws {
         let app = "com.apple.TextEdit"
-        let path = getBundleUrl(from: app as CFString)!.absoluteString!
+        let path = getBundleUrl(from: app as CFString)!.absoluteURL!.path
+        // dump(path)
         XCTAssert(path.contains("TextEdit.app"))
     }
 

@@ -7,7 +7,7 @@ public func printColumns(
     columnCount: Int = 1,
     gapCount: Int = 2
 ) {
-    if title != nil { print("-- \(title!) --") }
+    title.map { print("-- \($0) --") }
     if words.isEmpty {
         print("(Nothing to print)")
         return
