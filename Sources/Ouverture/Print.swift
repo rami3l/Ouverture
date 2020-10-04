@@ -53,8 +53,12 @@ public func printColumnsWithWidth(
     width: Int? = getTerminalWidth(),
     gapCount: Int = 2
 ) -> Bool {
+    // Here we use a naive way to calculate `columnCount`:
+    // we assume all the blocks are of the same length.
     guard let maxLen = words.map({ $0.count }).max() else { return false }
-    let columnCount = width.map { $0 / maxLen } ?? 1
+    if maxLen == 0 { return false }
+    let blockLen = maxLen + gapCount
+    let columnCount = width.map { $0 / blockLen } ?? 1
     printColumns(
         title: title,
         words,
