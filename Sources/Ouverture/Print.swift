@@ -68,14 +68,3 @@ public func getTerminalWidth() -> Int? {
 public func getTerminalHeight() -> Int? {
     return Int(getCommandOutput("tput lines").trim())
 }
-
-/// Return the smallest multiple c of b such that c >= a.
-func makeMul(_ a: Int, _ b: Int) -> Int {
-    let (q, r) = a.quotientAndRemainder(dividingBy: b)
-    if r == 0 {
-        return a
-    }
-    else {
-        return (q + 1) * b
-    }
-}
