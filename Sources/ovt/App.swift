@@ -106,7 +106,7 @@ extension Ovt {
                 hasOutput = true
                 printColumns(title: "Default Handler", [$0 as String])
             }
-            let handlerCandidates: [NSURL]? = {
+            let handlerCandidates: [CFString]? = {
                 /// Good old Rust match hack.
                 switch () {
                 case _ where isExt:
@@ -125,13 +125,9 @@ extension Ovt {
                 }
             }()
             handlerCandidates.map {
-                let ids = $0.map {
-                    // getBundleId(from: $0.absoluteString!)!
-                    $0.absoluteString!
-                }
                 hasOutput = printColumnsWithWidth(
                     title: "Handler Candidates",
-                    ids
+                    $0 as [String]
                 )
             }
             if !hasOutput { print("(Nothing to print)") }

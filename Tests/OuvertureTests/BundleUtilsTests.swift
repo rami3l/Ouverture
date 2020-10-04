@@ -30,10 +30,10 @@ extension OuvertureTests {
     func testReadInfoFromBundle() throws {
         let app = "Mock/IINA.app"
         let utis = readSupportedFileTypesFromBundle(app)!
-        XCTAssert(utis.contains { $0 == "" })
+        XCTAssert(utis.contains(""))
         let exts = readSupportedFileExtensionsFromBundle(app)!
-        XCTAssert(exts.contains { $0 == "mkv" })
+        XCTAssert(exts.contains("mkv"))
         let uscs = readSupportedUrlSchemesFromBundle(app)!
-        XCTAssert(uscs.contains { $0 == "iina" })
+        XCTAssert(uscs.contains("iina"))
     }
 }

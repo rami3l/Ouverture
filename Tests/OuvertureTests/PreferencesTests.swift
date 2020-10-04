@@ -32,12 +32,14 @@ extension OuvertureTests {
     func testGetHandlerCandidates() throws {
         let txtUti = "public.plain-text" as CFString
         let txtHandlers = getHandlerCandidates(forUti: txtUti)!
-        dump(txtHandlers)  // => com.apple.TextEdit
+        // dump(txtHandlers)  // => com.apple.TextEdit, ..
+        XCTAssert(txtHandlers.contains("com.apple.TextEdit" as CFString))
         let txtHandlers1 = getHandlerCandidates(forExt: "txt")!
-        dump(txtHandlers1)
+        // dump(txtHandlers1)
+        XCTAssert(txtHandlers1.contains("com.apple.TextEdit" as CFString))
         let httpHandlers = getHandlerCandidates(
             forUrlScheme: "http" as CFString
-        )!
-        dump(httpHandlers)  // => com.apple.Safari
+        )!  // dump(httpHandlers)  // => com.apple.Safari, ..
+        XCTAssert(httpHandlers.contains("com.apple.Safari" as CFString))
     }
 }

@@ -55,33 +55,35 @@ public func getDefaultHandler(forUrlScheme urlScheme: CFString) -> CFString? {
     return res
 }
 
-/// Get the possible handlers for a file type in the form of Bundle URL.
-public func getHandlerCandidates(forUti uti: CFString) -> [NSURL]? {
+/// Get the possible handlers for a file type in the form of Bundle ID.
+public func getHandlerCandidates(forUti uti: CFString) -> [CFString]? {
     let res =
         LSCopyAllRoleHandlersForContentType(uti, .all)?.takeUnretainedValue()
-        as? [NSURL]
+        as? [CFString]
     Log.verbose(
         "The handler candidates for UTI `\(uti)` are:\n`\(String(describing: res))`"
     )
     return res
 }
 
-/// Get the possible handlers for a file type in the form of Bundle URL.
+/// Get the possible handlers for a file type in the form of Bundle ID.
 public func getHandlerCandidates(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
-) -> [NSURL]? {
+) -> [CFString]? {
     guard let uti = getUtiString(forExt: ext, conformingTo: parentUti) else {
         return nil
     }
     return getHandlerCandidates(forUti: uti)
 }
 
-/// Get the possible handlers for a URL scheme in the form of Bundle URL.
-public func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [NSURL]? {
+/// Get the possible handlers for a URL scheme in the form of Bundle ID.
+public func getHandlerCandidates(
+    forUrlScheme urlScheme: CFString
+) -> [CFString]? {
     let res =
         LSCopyAllHandlersForURLScheme(urlScheme)?.takeUnretainedValue()
-        as? [NSURL]
+        as? [CFString]
     Log.verbose(
         "The handler candidates for URL Scheme `\(urlScheme)` are:\n`\(String(describing: res))`"
     )
