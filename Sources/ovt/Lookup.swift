@@ -16,7 +16,7 @@ extension Ovt {
         @OptionGroup var options: Ovt.Options
         @Option(
             name: .shortAndLong,
-            help: "Specify the parent UTI for some extension."
+            help: "Specify the parent UTI for the file extension."
         ) var conformingTo: String?
 
         mutating func run() {

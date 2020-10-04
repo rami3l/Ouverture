@@ -11,6 +11,7 @@ struct Ovt: ParsableCommand {
         // defaultSubcommand: Add.self,
         subcommands: [
             Check.self, CheckId.self, Id.self, Lookup.self, Which.self,
+            Uti.self,
         ]
     )
 }
