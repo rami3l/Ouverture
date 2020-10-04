@@ -17,7 +17,7 @@ OPTIONS:
   -h, --help              Show help information.
 
 SUBCOMMANDS:
-  check                   Check all the file types or URL schemes supported by a bundle specified by its directory.
+  check                   Check all the file types or URL schemes supported by a bundle specified by its path.
   check-id                Check all the file types or URL schemes supported by a bundle specified by its ID.
   id                      Get the ID of a bundle specified by its path.
   lookup                  Look up for the app bundles which have claimed some file type or URL scheme.

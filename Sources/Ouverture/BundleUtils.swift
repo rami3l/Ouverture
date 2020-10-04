@@ -28,7 +28,7 @@ public func getBundleUrl(from bundleId: CFString) -> NSURL? {
 }
 
 public func getBundleId(
-    from appDir: String,
+    from appPath: String,
     file: String = "Contents/Info.plist"
 ) -> String? {
     guard #available(macOS 10.11, *) else {
@@ -36,8 +36,8 @@ public func getBundleId(
         return nil
     }
 
-    Log.verbose("Getting `Info.plist` for `\(appDir)`")
-    let appUrl = URL.init(fileURLWithPath: appDir, isDirectory: true)
+    Log.verbose("Getting `Info.plist` for `\(appPath)`")
+    let appUrl = URL.init(fileURLWithPath: appPath, isDirectory: true)
     let plistUrl = URL.init(fileURLWithPath: file, relativeTo: appUrl)
 
     let plistAbsPath = plistUrl.absoluteURL.path
@@ -52,7 +52,7 @@ public func getBundleId(
 }
 
 private func readInfoFromBundle(
-    _ appDir: String,
+    _ appPath: String,
     file: String = "Contents/Info.plist",
     key: String,
     subkey: String
@@ -62,8 +62,8 @@ private func readInfoFromBundle(
         return nil
     }
 
-    Log.verbose("Getting `Info.plist` for `\(appDir)`")
-    let appUrl = URL.init(fileURLWithPath: appDir, isDirectory: true)
+    Log.verbose("Getting `Info.plist` for `\(appPath)`")
+    let appUrl = URL.init(fileURLWithPath: appPath, isDirectory: true)
     let plistUrl = URL.init(fileURLWithPath: file, relativeTo: appUrl)
 
     let plistAbsPath = plistUrl.absoluteURL.path
@@ -87,11 +87,11 @@ private func readInfoFromBundle(
 }
 
 public func readSupportedFileTypesFromBundle(
-    _ appDir: String,
+    _ appPath: String,
     file: String = "Contents/Info.plist"
 ) -> [String]? {
     return readInfoFromBundle(
-        appDir,
+        appPath,
         file: file,
         key: "CFBundleDocumentTypes",
         subkey: "LSItemContentTypes"
@@ -99,11 +99,11 @@ public func readSupportedFileTypesFromBundle(
 }
 
 public func readSupportedFileExtensionsFromBundle(
-    _ appDir: String,
+    _ appPath: String,
     file: String = "Contents/Info.plist"
 ) -> [String]? {
     return readInfoFromBundle(
-        appDir,
+        appPath,
         file: file,
         key: "CFBundleDocumentTypes",
         subkey: "CFBundleTypeExtensions"
@@ -111,11 +111,11 @@ public func readSupportedFileExtensionsFromBundle(
 }
 
 public func readSupportedUrlSchemesFromBundle(
-    _ appDir: String,
+    _ appPath: String,
     file: String = "Contents/Info.plist"
 ) -> [String]? {
     return readInfoFromBundle(
-        appDir,
+        appPath,
         file: file,
         key: "CFBundleURLTypes",
         subkey: "CFBundleURLSchemes"

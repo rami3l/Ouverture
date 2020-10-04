@@ -11,14 +11,14 @@ extension Ovt {
             abstract: "Get the ID of a bundle specified by its path."
         )
 
-        @Argument var appDir: String
+        @Argument var appPath: String
         @OptionGroup var options: Ovt.Options
 
         mutating func run() {
             loggerInit(self.options.verbose ? .verbose : .info)
-            guard let id = getBundleId(from: appDir) else {
+            guard let id = getBundleId(from: appPath) else {
                 Log.error(
-                    "Cannot get bundle ID, the bundle directory might be invalid."
+                    "Cannot get bundle ID, the bundle path might be invalid."
                 )
                 return
             }

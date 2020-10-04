@@ -25,8 +25,8 @@ extension OuvertureTests {
 
     func testGetBundleId() throws {
         let app = "com.apple.TextEdit"
-        let appDir = "/System/Applications/TextEdit.app"
-        XCTAssertEqual(getBundleId(from: appDir), app)
+        let appPath = "/System/Applications/TextEdit.app"
+        XCTAssertEqual(getBundleId(from: appPath), app)
     }
 
     func testReadInfoFromBundle() throws {
