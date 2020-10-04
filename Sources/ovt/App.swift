@@ -9,7 +9,7 @@ struct Ovt: ParsableCommand {
     static var configuration = CommandConfiguration(
         abstract: "A default application modifier for macOS.",
         // defaultSubcommand: Add.self,
-        subcommands: [Check.self, CheckId.self, Lookup.self]
+        subcommands: [Check.self, CheckId.self, Lookup.self, Which.self]
     )
 }
 

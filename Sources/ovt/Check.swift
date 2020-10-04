@@ -19,7 +19,7 @@ extension Ovt {
             loggerInit(self.options.verbose ? .verbose : .info)
             guard let bundleId = getBundleId(from: appDir) else {
                 Log.error(
-                    "Cannot get bundle ID, the bundle directory might be invalid"
+                    "Cannot get bundle ID, the bundle directory might be invalid."
                 )
                 return
             }
@@ -42,7 +42,7 @@ extension Ovt {
                 let appDir = appUrl.absoluteURL?.path
             else {
                 Log.error(
-                    "Cannot get bundle URL, the bundle ID might be invalid"
+                    "Cannot get bundle URL, the bundle ID might be invalid."
                 )
                 return
             }
