@@ -8,7 +8,10 @@ public func printColumns(
     gapCount: Int = 2
 ) {
     if title != nil { print("-- \(title!) --") }
-    if words.isEmpty { print("(Nothing to print)") }
+    if words.isEmpty {
+        print("(Nothing to print)")
+        return
+    }
     let lineCount: Int = {
         let (q, r) = words.count.quotientAndRemainder(dividingBy: columnCount)
         return r == 0 ? q : q + 1
@@ -25,6 +28,7 @@ public func printColumns(
         return res
     }()
     let maxLen = (0..<columnCount).map { col in
+        // We have checked that `words` is not empty.
         matrix.map { $0[col].count }.max()!
     }
     let blockLen = maxLen.map { $0 + gapCount }
