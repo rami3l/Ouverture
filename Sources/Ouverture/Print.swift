@@ -8,20 +8,40 @@ public func printColumns(
     gapCount: Int = 2
 ) {
     if title != nil { print("-- \(title!) --") }
-    guard let maxLen = words.map({ $0.count }).max() else { return }
-    let blockLen = maxLen + gapCount
-    let spaceCount = { (word: String) in blockLen - word.count }
-    words.enumerated()
-        .forEach {
-            let i = $0 + 1
-            let end =
-                i % columnCount == 0
-                ? "\n" : String(repeating: " ", count: spaceCount($1))
-            // dump("\($1), \(end)")
-            print($1, terminator: end)
+    if words.isEmpty { print("(Nothing to print)") }
+    let lineCount: Int = {
+        let (q, r) = words.count.quotientAndRemainder(dividingBy: columnCount)
+        return r == 0 ? q : q + 1
+    }()
+    let matrix: [[String]] = {
+        var res = [[String]](
+            repeating: [String](repeating: "", count: columnCount),
+            count: lineCount
+        )
+        for (n, word) in words.enumerated() {
+            let (ln, col) = n.quotientAndRemainder(dividingBy: columnCount)
+            res[ln][col] = word
         }
+        return res
+    }()
+    let maxLen = (0..<columnCount)
+        .map { col in matrix.map { $0[col].count }.max()! }
+    let blockLen = maxLen.map { $0 + gapCount }
+    for ln in 0..<lineCount {
+        for col in 0..<columnCount {
+            let end = col == columnCount - 1 ? "\n" : ""
+            print(
+                matrix[ln][col]
+                    .padding(
+                        toLength: blockLen[col],
+                        withPad: " ",
+                        startingAt: 0
+                    ),
+                terminator: end
+            )
+        }
+    }
 
-    if words.count % columnCount != 0 { print() }
     print()
 }
 
