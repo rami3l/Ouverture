@@ -27,10 +27,11 @@ extension Ovt {
                 "`\(fileType)` is claimed by the following:",
                 terminator: "\n\n"
             )
+
             // * Here we consider that the `fileType`s starting with `.` are extensions, eg. `.txt`,
-            // * those ending with `://` are URL Schemes,
-            // * while the reverse domain names are sent to the UTI handler.
-            // * The fallback case is extension.
+            // * those ending with `://` are URL schemes,
+            // * while the reverse domain names are UTIs.
+            // * The fallback case is extension, eg.`txt`.
             let isExt = fileType.starts(with: ".")
             let isScm = fileType.hasSuffix("://")
             let isUti = fileType.isReverseDomain()
@@ -61,6 +62,7 @@ extension Ovt {
                 hasOutput = true
                 printColumns(title: "Default Handler", [$0 as String])
             }
+
             let handlerCandidates: [CFString]? = {
                 switch () {
                 case _ where isExt:
@@ -89,6 +91,7 @@ extension Ovt {
                     $0 as [String]
                 )
             }
+
             if !hasOutput { print("(Nothing to print)") }
         }
     }
