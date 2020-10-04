@@ -20,6 +20,8 @@ public func printColumns(
             // dump("\($1), \(end)")
             print($1, terminator: end)
         }
+
+    if words.count % columnCount != 0 { print() }
     print()
 }
 
