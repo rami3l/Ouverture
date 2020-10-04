@@ -3,18 +3,23 @@ import Foundation
 /// Print a long list in the form of columns.
 public func printColumns(
     title: String? = nil,
-    _ lines: [String],
-    count: Int = 1
+    _ words: [String],
+    columnCount: Int = 1,
+    gapCount: Int = 2
 ) {
     if title != nil { print("-- \(title!) --") }
-    // Count of full lines.
-    let q = lines.count / count
-    // All terminators on one line.
-    let lt = Array(repeating: "\t", count: count - 1) + ["\n"]
-    var ltAll: [String] = Array(repeating: lt, count: q + 1).flatMap { $0 }
-    ltAll[lines.count - 1] = "\n"
-    let pairs = zip(lines, ltAll)
-    pairs.forEach { print($0, terminator: $1) }
+    guard let maxLen = words.map({ $0.count }).max() else { return }
+    let blockLen = maxLen + gapCount
+    let spaceCount = { (word: String) in blockLen - word.count }
+    words.enumerated()
+        .forEach {
+            let i = $0 + 1
+            let end =
+                i % columnCount == 0
+                ? "\n" : String(repeating: " ", count: spaceCount($1))
+            // dump("\($1), \(end)")
+            print($1, terminator: end)
+        }
     print()
 }
 
@@ -23,15 +28,18 @@ public func printColumns(
 /// Returns if this action has printed something.
 public func printColumnsWithWidth(
     title: String? = nil,
-    _ lines: [String],
-    width: Int? = getTerminalWidth()
+    _ words: [String],
+    width: Int? = getTerminalWidth(),
+    gapCount: Int = 2
 ) -> Bool {
-    guard let maxLineWidth = lines.map({ $0.count }).max() else { return false }
-    if maxLineWidth == 0 { return false }
-
-    let tabWidth = makeMul(maxLineWidth, 8)
-    let count = width.map { $0 / tabWidth } ?? 1
-    printColumns(title: title, lines, count: count)
+    guard let maxLen = words.map({ $0.count }).max() else { return false }
+    let columnCount = width.map { $0 / maxLen } ?? 1
+    printColumns(
+        title: title,
+        words,
+        columnCount: columnCount,
+        gapCount: gapCount
+    )
     return true
 }
 
