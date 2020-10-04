@@ -14,7 +14,8 @@ public func getBundleUrlCandidates(from bundleId: CFString) -> [NSURL]? {
 
 public func getBundleUrl(from bundleId: CFString) -> NSURL? {
     if #available(macOS 10.15, *) {
-    } else {
+    }
+    else {
         Log.error("The result is optimal for macOS 10.15+ only")
     }
 
@@ -119,12 +120,4 @@ public func readSupportedUrlSchemesFromBundle(
         key: "CFBundleURLTypes",
         subkey: "CFBundleURLSchemes"
     )
-}
-
-// Check if a String is a reverse domain name BundleID.
-public func isBundleId(_ s: String) -> Bool {
-    return s.range(
-        of: #"^[a-z]{2,}(\.[a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)+"#,
-        options: .regularExpression
-    ) != nil
 }

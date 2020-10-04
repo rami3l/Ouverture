@@ -1,6 +1,11 @@
 import Foundation
 
-func printColumns(title: String? = nil, _ lines: [String], count: Int = 1) {
+/// Print a long list in the form of columns.
+public func printColumns(
+    title: String? = nil,
+    _ lines: [String],
+    count: Int = 1
+) {
     if title != nil { print("-- \(title!) --") }
     // Count of full lines.
     let q = lines.count / count
@@ -13,20 +18,24 @@ func printColumns(title: String? = nil, _ lines: [String], count: Int = 1) {
     print()
 }
 
-func printColumnsWithWidth(
+/// Print a long list in the form of columns, the number of which is
+/// automatically detected based on the terminal width.
+/// Returns if this action has printed something.
+public func printColumnsWithWidth(
     title: String? = nil,
     _ lines: [String],
     width: Int? = getTerminalWidth()
-) {
-    guard let maxLineWidth = lines.map({ $0.count }).max() else { return }
-    if maxLineWidth == 0 { return }
+) -> Bool {
+    guard let maxLineWidth = lines.map({ $0.count }).max() else { return false }
+    if maxLineWidth == 0 { return false }
 
     let tabWidth = makeMul(maxLineWidth, 8)
     let count = width.map { $0 / tabWidth } ?? 1
     printColumns(title: title, lines, count: count)
+    return true
 }
 
-func getCommandOutput(_ command: String) -> String {
+public func getCommandOutput(_ command: String) -> String {
     let task = Process()
     task.launchPath = "/bin/bash"
     task.arguments = ["-c", command]
@@ -42,18 +51,11 @@ func getCommandOutput(_ command: String) -> String {
     return output
 }
 
-extension String {
-    /// Trim whitespace and newline characters from a `String`.
-    func trim() -> String {
-        return self.trimmingCharacters(in: .whitespacesAndNewlines)
-    }
-}
-
-func getTerminalWidth() -> Int? {
+public func getTerminalWidth() -> Int? {
     return Int(getCommandOutput("tput cols").trim())
 }
 
-func getTerminalHeight() -> Int? {
+public func getTerminalHeight() -> Int? {
     return Int(getCommandOutput("tput lines").trim())
 }
 

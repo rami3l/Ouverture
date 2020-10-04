@@ -17,7 +17,8 @@ public func getUtiString(
         Log.verbose(
             "The UTI for extention `\(ext)` under `\(parentUti!)` is `\(res as String? ?? "Unknown")`"
         )
-    } else {
+    }
+    else {
         Log.verbose(
             "The preferred UTI for extention `\(ext)` is `\(res as String? ?? "Unknown")`"
         )
@@ -87,9 +88,10 @@ public func getHandlerCandidates(forUrlScheme urlScheme: CFString) -> [NSURL]? {
     return res
 }
 
-public func setDefaultHandler(forUti uti: CFString, to bundleId: CFString)
-    -> Bool
-{
+public func setDefaultHandler(
+    forUti uti: CFString,
+    to bundleId: CFString
+) -> Bool {
     Log.verbose("Setting default handler for UTI `\(uti) to `\(bundleId)`")
     let res =
         kOSReturnSuccess

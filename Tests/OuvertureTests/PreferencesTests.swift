@@ -19,7 +19,25 @@ extension OuvertureTests {
     func testGetDefaultHandler() throws {
         let txtUti = "public.plain-text" as CFString
         let txtHandler = getDefaultHandler(forUti: txtUti)! as String
-        // print(txtHandler) // => com.apple.TextEdit
-        XCTAssert(isBundleId(txtHandler))
+        // dump(txtHandler) // => com.apple.TextEdit
+        XCTAssert(txtHandler.isReverseDomain())
+        let txtHandler1 = getDefaultHandler(forExt: "txt")! as String
+        XCTAssert(txtHandler1.isReverseDomain())
+        let httpHandler =
+            getDefaultHandler(forUrlScheme: "http" as CFString)! as String
+        // dump(httpHandler) // => com.apple.Safari
+        XCTAssert(httpHandler.isReverseDomain())
+    }
+
+    func testGetHandlerCandidates() throws {
+        let txtUti = "public.plain-text" as CFString
+        let txtHandlers = getHandlerCandidates(forUti: txtUti)!
+        dump(txtHandlers)  // => com.apple.TextEdit
+        let txtHandlers1 = getHandlerCandidates(forExt: "txt")!
+        dump(txtHandlers1)
+        let httpHandlers = getHandlerCandidates(
+            forUrlScheme: "http" as CFString
+        )!
+        dump(httpHandlers)  // => com.apple.Safari
     }
 }
