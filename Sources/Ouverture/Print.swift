@@ -27,20 +27,22 @@ public func printColumns(
     let maxLen = (0..<columnCount)
         .map { col in matrix.map { $0[col].count }.max()! }
     let blockLen = maxLen.map { $0 + gapCount }
-    for ln in 0..<lineCount {
-        for col in 0..<columnCount {
-            let end = col == columnCount - 1 ? "\n" : ""
-            print(
-                matrix[ln][col]
-                    .padding(
-                        toLength: blockLen[col],
-                        withPad: " ",
-                        startingAt: 0
-                    ),
-                terminator: end
-            )
+    matrix.enumerated()
+        .forEach { (ln, ws) in
+            ws.enumerated()
+                .forEach { (col, w) in
+                    let end = col == columnCount - 1 ? "\n" : ""
+                    print(
+                        matrix[ln][col]
+                            .padding(
+                                toLength: blockLen[col],
+                                withPad: " ",
+                                startingAt: 0
+                            ),
+                        terminator: end
+                    )
+                }
         }
-    }
 
     print()
 }
