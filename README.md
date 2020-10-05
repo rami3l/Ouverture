@@ -1,9 +1,6 @@
 # Ouverture
 
-## Contents
-
 - [Ouverture](#ouverture)
-  - [Contents](#contents)
   - [Warning: WIP](#warning-wip)
 
 ## Warning: WIP
