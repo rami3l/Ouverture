@@ -6,6 +6,16 @@ import XCTest
 @testable import Ouverture
 
 extension OuvertureTests {
+    func testGetUtiDeclaration() throws {
+        let uti = "public.jpeg" as CFString
+        let desc = getUtiDescription(forUti: uti)! as String
+        XCTAssertEqual(desc, "JPEG image")
+        let parents = getUtiParents(forUti: uti)! as [String]
+        XCTAssertEqual(parents, ["public.image"])
+        let exts = getUtiExtensions(forUti: uti)! as [String]
+        XCTAssertEqual(exts, ["jpeg", "jpg", "jpe"])
+    }
+
     func testGetUtiString() throws {
         func uti(_ ext: String, _ parent: String? = nil) -> String {
             return getUtiString(forExt: ext, conformingTo: parent as CFString?)!

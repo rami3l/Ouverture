@@ -25,6 +25,62 @@ public func getUtiString(
     return res
 }
 
+public func getUtiDeclaration(forUti uti: CFString) -> [String: AnyObject]? {
+    return UTTypeCopyDeclaration(uti)?.takeUnretainedValue()
+        as? [String: AnyObject]
+}
+
+public func getUtiDeclaration(
+    forExt ext: String,
+    conformingTo parentUti: CFString? = nil
+) -> [String: AnyObject]? {
+    return getUtiString(forExt: ext, conformingTo: parentUti).flatMap {
+        getUtiDeclaration(forUti: $0)
+    }
+}
+
+public func getUtiDescription(forUti uti: CFString) -> CFString? {
+    return getUtiDeclaration(forUti: uti)?["UTTypeDescription"] as! CFString?
+}
+
+public func getUtiDescription(
+    forExt ext: String,
+    conformingTo parentUti: CFString? = nil
+) -> CFString? {
+    return getUtiString(forExt: ext, conformingTo: parentUti).flatMap {
+        getUtiDescription(forUti: $0)
+    }
+}
+
+public func getUtiParents(forUti uti: CFString) -> [CFString]? {
+    return getUtiDeclaration(forUti: uti)?["UTTypeConformsTo"] as! [CFString]?
+}
+
+public func getUtiParents(
+    forExt ext: String,
+    conformingTo parentUti: CFString? = nil
+) -> [CFString]? {
+    return getUtiString(forExt: ext, conformingTo: parentUti).flatMap {
+        getUtiParents(forUti: $0)
+    }
+}
+
+public func getUtiExtensions(forUti uti: CFString) -> [CFString]? {
+    let tagSpec =
+        getUtiDeclaration(forUti: uti)?["UTTypeTagSpecification"]
+        as? [String: AnyObject]
+    return tagSpec?["public.filename-extension"] as! [CFString]?
+}
+
+public func getUtiExtensions(
+    forExt ext: String,
+    conformingTo parentUti: CFString? = nil
+) -> [CFString]? {
+    return getUtiString(forExt: ext, conformingTo: parentUti).flatMap {
+        getUtiExtensions(forUti: $0)
+    }
+}
+
 public func getDefaultHandler(forUti uti: CFString) -> CFString? {
     let res = LSCopyDefaultRoleHandlerForContentType(uti, .all)?
         .takeUnretainedValue()
@@ -39,10 +95,9 @@ public func getDefaultHandler(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
 ) -> CFString? {
-    guard let uti = getUtiString(forExt: ext, conformingTo: parentUti) else {
-        return nil
+    return getUtiString(forExt: ext, conformingTo: parentUti).flatMap {
+        return getDefaultHandler(forUti: $0)
     }
-    return getDefaultHandler(forUti: uti)
 }
 
 /// Get the default handler for a file type in the form of BundleID (eg. com.apple.TextEdit).
@@ -70,10 +125,9 @@ public func getHandlerCandidates(
     forExt ext: String,
     conformingTo parentUti: CFString? = nil
 ) -> [CFString]? {
-    guard let uti = getUtiString(forExt: ext, conformingTo: parentUti) else {
-        return nil
+    getUtiString(forExt: ext, conformingTo: parentUti).flatMap {
+        return getHandlerCandidates(forUti: $0)
     }
-    return getHandlerCandidates(forUti: uti)
 }
 
 /// Get the possible handlers for a URL scheme in the form of Bundle ID.
