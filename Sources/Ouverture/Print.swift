@@ -58,7 +58,12 @@ public func printColumnsWithWidth(
     guard let maxLen = words.map({ $0.count }).max() else { return false }
     if maxLen == 0 { return false }
     let blockLen = maxLen + gapCount
-    let columnCount = width.map { $0 / blockLen } ?? 1
+    let columnCount: Int = {
+        switch width {
+        case .some(..<16), nil: return 1
+        case let .some(w): return w / blockLen
+        }
+    }()
     printColumns(
         title: title,
         words,
