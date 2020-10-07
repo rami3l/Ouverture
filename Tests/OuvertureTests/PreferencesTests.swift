@@ -6,16 +6,6 @@ import XCTest
 @testable import Ouverture
 
 extension OuvertureTests {
-    func testGetUtiDeclaration() throws {
-        let uti = "public.jpeg" as CFString
-        let desc = getUtiDescription(forUti: uti)! as String
-        XCTAssertEqual(desc, "JPEG image")
-        let parents = getUtiParents(forUti: uti)! as [String]
-        XCTAssertEqual(parents, ["public.image"])
-        let exts = getUtiExtensions(forUti: uti)! as [String]
-        XCTAssertEqual(exts, ["jpeg", "jpg", "jpe"])
-    }
-
     func testGetUtiString() throws {
         func uti(_ ext: String, _ parent: String? = nil) -> String {
             return getUtiString(forExt: ext, conformingTo: parent as CFString?)!
@@ -24,6 +14,16 @@ extension OuvertureTests {
         XCTAssertEqual(uti("txt"), "public.plain-text")
         XCTAssertEqual(uti("rs"), "dyn.age81e62")
         XCTAssertEqual(uti("rs", "public.plain-text"), "dyn.ah62d4sb4ge81e62")
+    }
+
+    func testGetUtiDeclaration() throws {
+        let uti = "public.plain-text" as CFString
+        let desc = getUtiDescription(forUti: uti)! as String
+        XCTAssertEqual(desc, "text")
+        let parents = getUtiParents(forUti: uti)! as [String]
+        XCTAssertEqual(parents, ["public.text"])
+        let exts = getUtiExtensions(forUti: uti)! as [String]
+        XCTAssertEqual(exts, ["txt", "text"])
     }
 
     func testGetDefaultHandler() throws {
