@@ -26,6 +26,16 @@ extension OuvertureTests {
         XCTAssertEqual(exts, ["txt", "text"])
     }
 
+    func testExtra() throws {
+        let uti = "public.plain-text"
+        let rawDict = UTTypeCopyDeclaration(uti as CFString)?
+            .takeRetainedValue()
+        let dict = rawDict as? [String: AnyObject]
+        dump(dict)
+        let desc = dict?["UTTypeDescription"] as? String
+        dump(desc)
+    }
+
     func testGetDefaultHandler() throws {
         let txtUti = "public.plain-text" as CFString
         let txtHandler = getDefaultHandler(forUti: txtUti)! as String
