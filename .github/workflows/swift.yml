@@ -2,7 +2,7 @@ name: Swift
 
 on:
   push:
-    branches: [master, fix-uti-desc]
+    branches: [master]
   pull_request:
     branches: [master]
 
