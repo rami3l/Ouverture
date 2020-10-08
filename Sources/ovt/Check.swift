@@ -9,7 +9,17 @@ extension Ovt {
     struct Check: ParsableCommand {
         static var configuration = CommandConfiguration(
             abstract:
-                "Check all the file types or URL schemes supported by a bundle specified by its path."
+                "Check all the file types or URL schemes supported by a bundle.",
+            subcommands: [Path.self, Id.self],
+            defaultSubcommand: Path.self
+        )
+    }
+}
+
+extension Ovt.Check {
+    struct Path: ParsableCommand {
+        static var configuration = CommandConfiguration(
+            abstract: "Check a bundle by its path."
         )
 
         @Argument var appPath: String
@@ -27,10 +37,9 @@ extension Ovt {
         }
     }
 
-    struct CheckId: ParsableCommand {
+    struct Id: ParsableCommand {
         static var configuration = CommandConfiguration(
-            abstract:
-                "Check all the file types or URL schemes supported by a bundle specified by its ID."
+            abstract: "Check a bundle by its ID."
         )
 
         @Argument var bundleId: String
