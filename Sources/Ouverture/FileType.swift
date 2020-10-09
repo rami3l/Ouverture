@@ -1,6 +1,7 @@
 import Foundation
 
-public enum FileType: CustomStringConvertible { case ext(String)
+public enum FileType: CustomStringConvertible {
+    case ext(String)
     case uti(String)
     case urlScheme(String)
 }

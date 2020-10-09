@@ -178,6 +178,6 @@ public func setDefaultHandler(
     )
     let res =
         kOSReturnSuccess == LSSetDefaultHandlerForURLScheme(urlScheme, bundleId)
-    Log.verbose("Setting default handler " + (res ? "success" : "failed"))
+    Log.verbose("Setting default handler \(res ? "success" : "failed").")
     return res
 }
