@@ -56,3 +56,18 @@ extension OuvertureTests {
         XCTAssert(httpHandlers.contains("com.apple.Safari" as CFString))
     }
 }
+
+#if FULL
+    extension OuvertureTests {
+        func testSetDefaultHandler() throws {
+            let preview = "com.apple.Preview" as CFString
+            let safari = "com.apple.Safari" as CFString
+            // Set the default handler of `.pdf` to Safari.
+            setDefaultHandler(forExt: "pdf", to: safari)
+            XCTAssertEqual(safari, getDefaultHandler(forExt: "pdf")!)
+            // Set the default handler of `.pdf` to Preview.
+            setDefaultHandler(forExt: "pdf", to: preview)
+            XCTAssertEqual(preview, getDefaultHandler(forExt: "pdf")!)
+        }
+    }
+#endif

@@ -15,7 +15,7 @@ struct Ovt: ParsableCommand {
 }
 
 extension Ovt {
-    /// The common options across subcommands
+    /// The common options across subcommands.
     struct Options: ParsableArguments {
         @Flag(name: .shortAndLong, help: "Enable verbose output.")
         var verbose = false
