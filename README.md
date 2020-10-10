@@ -103,29 +103,29 @@ ovt which com.apple.Safari --lucky # => /Applications/Safari.app
 
 - Get the UTI of a file extension:
 
-```bash
-ovt uti from-ext .pdf # => com.adobe.pdf
-# ... or you can simply omit the `.`
-ovt uti from-ext pdf # => com.adobe.pdf
-```
+  ```bash
+  ovt uti from-ext .pdf # => com.adobe.pdf
+  # ... or you can simply omit the `.`
+  ovt uti from-ext pdf # => com.adobe.pdf
+  ```
 
 - Get the possible extension(s) of a UTI:
 
-```bash
-ovt uti to-ext public.mpeg-4 # => mp4, mpeg4
-# Use `--lucky` if you want the first one only
-ovt uti to-ext public.mpeg-4 --lucky # => mp4
-```
+  ```bash
+  ovt uti to-ext public.mpeg-4 # => mp4, mpeg4
+  # Use `--lucky` if you want the first one only
+  ovt uti to-ext public.mpeg-4 --lucky # => mp4
+  ```
 
 - Get the parent(s) of a UTI:
 
-```bash
-ovt uti parent public.mpeg-4 # => public.movie
-```
+  ```bash
+  ovt uti parent public.mpeg-4 # => public.movie
+  ```
 
 - Get the description string of a UTI:
 
-```bash
-# This might not work on some machines
-ovt uti describe public.mpeg-4 # => MPEG-4 movie
-```
+  ```bash
+  # This might not work on some machines
+  ovt uti describe public.mpeg-4 # => MPEG-4 movie
+  ```
