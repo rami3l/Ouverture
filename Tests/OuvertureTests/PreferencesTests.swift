@@ -63,10 +63,10 @@ extension OuvertureTests {
             let preview = "com.apple.Preview" as CFString
             let safari = "com.apple.Safari" as CFString
             // Set the default handler of `.pdf` to Safari.
-            setDefaultHandler(forExt: "pdf", to: safari)
+            XCTAssert(setDefaultHandler(forExt: "pdf", to: safari))
             XCTAssertEqual(safari, getDefaultHandler(forExt: "pdf")!)
             // Set the default handler of `.pdf` to Preview.
-            setDefaultHandler(forExt: "pdf", to: preview)
+            XCTAssert(setDefaultHandler(forExt: "pdf", to: preview))
             XCTAssertEqual(preview, getDefaultHandler(forExt: "pdf")!)
         }
     }
