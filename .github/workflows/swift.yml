@@ -15,4 +15,4 @@ jobs:
       - name: Build
         run: swift build -v
       - name: Run tests
-        run: swift test -Xswiftc -DALL
+        run: swift test -Xswiftc -DFULL
