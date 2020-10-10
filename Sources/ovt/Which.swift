@@ -8,7 +8,7 @@ import Ouverture
 extension Ovt {
     struct Which: ParsableCommand {
         static var configuration = CommandConfiguration(
-            abstract: "Get the path(s) of a bundle specified by its ID."
+            abstract: "Get the path(s) of an app bundle specified by its ID."
         )
 
         @Argument var bundleId: String

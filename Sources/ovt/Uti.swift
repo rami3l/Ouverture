@@ -20,7 +20,7 @@ extension Ovt {
 extension Ovt.Uti {
     struct FromExt: ParsableCommand {
         static var configuration = CommandConfiguration(
-            abstract: "Get the UTI of an file extension."
+            abstract: "Get the UTI of a file extension."
         )
 
         @Argument var ext: String

@@ -9,7 +9,7 @@ extension Ovt {
     struct Lookup: ParsableCommand {
         static var configuration = CommandConfiguration(
             abstract:
-                "Look up for the app bundles which have claimed some file type or URL scheme."
+                "Look up app bundles which have claimed some file type or URL scheme."
         )
 
         @Argument var fileType: String
