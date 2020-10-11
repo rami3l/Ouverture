@@ -10,6 +10,7 @@ Warning: This project is still in its early days. Use it with care!
 
 - [Ouverture](#ouverture)
   - [Contents](#contents)
+  - [Building & Installation](#building--installation)
   - [Usage By Example](#usage-by-example)
     - [Set default handler: `ovt bind`](#set-default-handler-ovt-bind)
     - [Check file/URL support: `ovt check`](#check-fileurl-support-ovt-check)
@@ -17,6 +18,27 @@ Warning: This project is still in its early days. Use it with care!
     - [Look up file/URL claimer(s): `ovt lookup`](#look-up-fileurl-claimers-ovt-lookup)
     - [Get app path: `ovt which`](#get-app-path-ovt-which)
     - [UTI utilities: `ovt uti`](#uti-utilities-ovt-uti)
+
+## Building & Installation
+
+- `homebrew` install:
+  
+  ```bash
+  brew install rami3l/tap/ouverture
+  ```
+
+- Build from source:
+  
+  ```bash
+  # The recommended way is to use `mint`, so we will install it first:
+  brew install mint
+
+  # To install the latest release:
+  mint install rami3l
+
+  # To live on the bleeding edge:
+  mint install rami3l/Ouverture@master
+  ```
 
 ## Usage By Example
 
