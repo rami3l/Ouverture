@@ -98,7 +98,7 @@ jobs:
             {
               "version": "${{ steps.ver.outputs.tag }}",
               "url_mac": "${{ steps.url.outputs.mac }}",
-              "sha256_mac": "${{ steps.checksums.outputs.mac }}",
+              "sha256_mac": "${{ steps.checksums.outputs.mac }}"
             }
 
       - name: Get the output script
