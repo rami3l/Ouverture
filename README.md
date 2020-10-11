@@ -4,19 +4,19 @@
 
 `Ouverture` is a macOS utility aiming to facilitate the process of inspecting and modifying the default handlers of file types and URL schemes.
 
+Warning: This project is still in its early days. Use it with care!
+
+## Contents
+
 - [Ouverture](#ouverture)
-  - [Warning: WIP](#warning-wip)
+  - [Contents](#contents)
   - [Usage By Example](#usage-by-example)
     - [Set default handler: `ovt bind`](#set-default-handler-ovt-bind)
     - [Check file/URL support: `ovt check`](#check-fileurl-support-ovt-check)
     - [Get bundle ID: `ovt id`](#get-bundle-id-ovt-id)
-    - [`ovt lookup`: Look up file/URL claimer(s)](#ovt-lookup-look-up-fileurl-claimers)
+    - [Look up file/URL claimer(s): `ovt lookup`](#look-up-fileurl-claimers-ovt-lookup)
     - [Get app path: `ovt which`](#get-app-path-ovt-which)
     - [UTI utilities: `ovt uti`](#uti-utilities-ovt-uti)
-
-## Warning: WIP
-
-This project is still in its early days. Use it with care!
 
 ## Usage By Example
 
@@ -77,7 +77,7 @@ Find all the file types or URL schemes supported by an app bundle.
 ovt id /Applications/Safari.app/ # => com.apple.Safari
 ```
 
-### `ovt lookup`: Look up file/URL claimer(s)
+### Look up file/URL claimer(s): `ovt lookup`
 
 Find all the app bundles which have claimed some file type or URL scheme.
 
