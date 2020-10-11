@@ -34,7 +34,7 @@ Warning: This project is still in its early days. Use it with care!
   brew install mint
 
   # To install the latest release:
-  mint install rami3l
+  mint install rami3l/Ouverture
 
   # To live on the bleeding edge:
   mint install rami3l/Ouverture@master
