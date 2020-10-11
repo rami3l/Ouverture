@@ -17,6 +17,8 @@ jobs:
             asset_name: ouverture-macos-amd64
 
     steps:
+      - uses: actions/checkout@v1
+
       - name: Build
         run: swift build -c release
 
