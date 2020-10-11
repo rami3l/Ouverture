@@ -7,12 +7,12 @@
 - [Ouverture](#ouverture)
   - [Warning: WIP](#warning-wip)
   - [Usage By Example](#usage-by-example)
-    - [`ovt bind`: Set default handler](#ovt-bind-set-default-handler)
-    - [`ovt check`: Check file/URL support](#ovt-check-check-fileurl-support)
-    - [`ovt id`: Get bundle ID](#ovt-id-get-bundle-id)
+    - [Set default handler: `ovt bind`](#set-default-handler-ovt-bind)
+    - [Check file/URL support: `ovt check`](#check-fileurl-support-ovt-check)
+    - [Get bundle ID: `ovt id`](#get-bundle-id-ovt-id)
     - [`ovt lookup`: Look up file/URL claimer(s)](#ovt-lookup-look-up-fileurl-claimers)
-    - [`ovt which`: Get app path](#ovt-which-get-app-path)
-    - [`ovt uti`: UTI utilities](#ovt-uti-uti-utilities)
+    - [Get app path: `ovt which`](#get-app-path-ovt-which)
+    - [UTI utilities: `ovt uti`](#uti-utilities-ovt-uti)
 
 ## Warning: WIP
 
@@ -21,24 +21,25 @@ This project is still in its early days. Use it with care!
 ## Usage By Example
 
 The use of this project is mainly around `UTI`s ([what's this?](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/understanding_utis/understand_utis_conc/understand_utis_conc.html)) and URL Schemes.
-You can find a complete list of UTIs [here](https://escapetech.eu/manuals/qdrop/uti.html), and of URL schemes [here](https://en.wikipedia.org/wiki/List_of_URI_schemes).
+You can find a complete list of UTIs [here](https://escapetech.eu/manuals/qdrop/uti.html), and a list of URL schemes [here](https://en.wikipedia.org/wiki/List_of_URI_schemes).
 
-See [here](#ovt-bind-set-default-handler) for the file type and URL scheme syntax in `Ouverture`.
-
-### `ovt bind`: Set default handler
+### Set default handler: `ovt bind`
 
 - Set default handler by bundle path:
 
     ```bash
     # URL schemes end with `://`
     ovt bind path /Applications/Safari.app/ http://
+
     # UTIs are reverse domain names
     ovt bind path /Applications/Safari.app/ com.adobe.pdf
+
     # Extensions start with a `.`
     ovt bind path /Applications/Safari.app/ .pdf
 
     # ... or you can simply omit the `.`
-    ovt bind path /Applications/Safari.app/ pdf
+    ovt bind path /Applications/Safari.app/
+
     # `path` can also be omitted here
     ovt bind /Applications/Safari.app/ pdf
     ```
@@ -50,7 +51,7 @@ See [here](#ovt-bind-set-default-handler) for the file type and URL scheme synta
     ovt bind id com.apple.Safari http://
     ```
 
-### `ovt check`: Check file/URL support
+### Check file/URL support: `ovt check`
 
 Find all the file types or URL schemes supported by an app bundle.
 
@@ -58,6 +59,7 @@ Find all the file types or URL schemes supported by an app bundle.
 
     ```bash
     ovt check path /Applications/IINA.app # => File Extensions: 3g2, 3gp, aa3, aac, ...
+
     # `path` can be omitted here
     ovt check /Applications/IINA.app/
     ```
@@ -69,7 +71,7 @@ Find all the file types or URL schemes supported by an app bundle.
     ovt check id com.apple.Safari # => File Extensions: css, download, gif, ...
     ```
 
-### `ovt id`: Get bundle ID
+### Get bundle ID: `ovt id`
 
 ```bash
 ovt id /Applications/Safari.app/ # => com.apple.Safari
@@ -82,29 +84,34 @@ Find all the app bundles which have claimed some file type or URL scheme.
 ```bash
 # URL schemes end with `://`
 ovt lookup http:// # => com.apple.Safari, ...
+
 # UTIs are reverse domain names
 ovt lookup com.adobe.pdf # => com.apple.Preview, ...
+
 # Extensions start with a `.`
 ovt lookup .pdf # => com.apple.Preview, ...
+
 # ... or you can simply omit the `.`
 ovt lookup pdf # => com.apple.Preview, ...
 ```
 
-### `ovt which`: Get app path
+### Get app path: `ovt which`
 
 ```bash
 # This will return a list of all possible paths
 ovt which com.apple.Safari
+
 # Use `--lucky` if you want the first one only
 ovt which com.apple.Safari --lucky # => /Applications/Safari.app
 ```
 
-### `ovt uti`: UTI utilities
+### UTI utilities: `ovt uti`
 
 - Get the UTI of a file extension:
 
   ```bash
-  ovt uti from-ext .pdf # => com.adobe.pdf
+  ovt uti from-ext .pdf # => com.adobe.pdp
+
   # ... or you can simply omit the `.`
   ovt uti from-ext pdf # => com.adobe.pdf
   ```
@@ -113,6 +120,7 @@ ovt which com.apple.Safari --lucky # => /Applications/Safari.app
 
   ```bash
   ovt uti to-ext public.mpeg-4 # => mp4, mpeg4
+
   # Use `--lucky` if you want the first one only
   ovt uti to-ext public.mpeg-4 --lucky # => mp4
   ```
