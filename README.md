@@ -1,6 +1,6 @@
 # Ouverture
 
-> *ouverture* /uvɛʀtyʀ/ nf. opening
+> /uvɛʀtyʀ/ nf. opening
 
 `Ouverture` is a macOS utility aiming to facilitate the process of inspecting and modifying the default handlers of file types and URL schemes.
 
