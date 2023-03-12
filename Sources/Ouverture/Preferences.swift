@@ -12,15 +12,11 @@ public func getUtiString(
         ext as CFString,
         parentUti
     )?.takeUnretainedValue()
-    if parentUti != nil {
-        Log.verbose(
-            "The UTI for extention `\(ext)` under `\(parentUti!)` is `\(res as String? ?? "Unknown")`"
-        )
-    } else {
-        Log.verbose(
-            "The preferred UTI for extention `\(ext)` is `\(res as String? ?? "Unknown")`"
-        )
-    }
+    Log.verbose(
+        parentUti != nil
+            ? "The UTI for extention `\(ext)` under `\(parentUti!)` is `\(res as String? ?? "Unknown")`"
+            : "The preferred UTI for extention `\(ext)` is `\(res as String? ?? "Unknown")`"
+    )
     return res
 }
 
@@ -83,9 +79,7 @@ public func getUtiExtensions(
 public func getDefaultHandler(forUti uti: CFString) -> CFString? {
     let res = LSCopyDefaultRoleHandlerForContentType(uti, .all)?
         .takeUnretainedValue()
-    Log.verbose(
-        "The default handler for UTI `\(uti)` is `\(res as String? ?? "Unknown")`"
-    )
+    Log.verbose("The default handler for UTI `\(uti)` is `\(res as String? ?? "Unknown")`")
     return res
 }
 
@@ -113,9 +107,7 @@ public func getHandlerCandidates(forUti uti: CFString) -> [CFString]? {
     let res =
         LSCopyAllRoleHandlersForContentType(uti, .all)?.takeUnretainedValue()
         as? [CFString]
-    Log.verbose(
-        "The handler candidates for UTI `\(uti)` are:\n`\(String(describing: res))`"
-    )
+    Log.verbose("The handler candidates for UTI `\(uti)` are:\n`\(String(describing: res))`")
     return res
 }
 
@@ -147,9 +139,7 @@ public func setDefaultHandler(
     to bundleId: CFString
 ) -> Bool {
     Log.verbose("Setting default handler for UTI `\(uti) to `\(bundleId)`")
-    let res =
-        kOSReturnSuccess
-        == LSSetDefaultRoleHandlerForContentType(uti, .all, bundleId)
+    let res = kOSReturnSuccess == LSSetDefaultRoleHandlerForContentType(uti, .all, bundleId)
     Log.verbose("Setting default handler " + (res ? "success" : "failed"))
     return res
 }
@@ -159,9 +149,7 @@ public func setDefaultHandler(
     conformingTo parentUti: CFString? = nil,
     to bundleId: CFString
 ) -> Bool {
-    Log.verbose(
-        "Setting default handler for extention `\(ext) to `\(bundleId)`"
-    )
+    Log.verbose("Setting default handler for extention `\(ext) to `\(bundleId)`")
     guard let uti = getUtiString(forExt: ext, conformingTo: parentUti) else {
         return false
     }
@@ -172,11 +160,8 @@ public func setDefaultHandler(
     forUrlScheme urlScheme: CFString,
     to bundleId: CFString
 ) -> Bool {
-    Log.verbose(
-        "Setting default handler for URL Scheme `\(urlScheme) to `\(bundleId)`"
-    )
-    let res =
-        kOSReturnSuccess == LSSetDefaultHandlerForURLScheme(urlScheme, bundleId)
+    Log.verbose("Setting default handler for URL Scheme `\(urlScheme) to `\(bundleId)`")
+    let res = kOSReturnSuccess == LSSetDefaultHandlerForURLScheme(urlScheme, bundleId)
     Log.verbose("Setting default handler \(res ? "success" : "failed").")
     return res
 }

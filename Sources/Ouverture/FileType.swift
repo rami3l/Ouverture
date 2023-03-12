@@ -1,6 +1,6 @@
 import Foundation
 
-public enum FileType: CustomStringConvertible {
+public enum FileType {
     case ext(String)
     case uti(String)
     case urlScheme(String)
@@ -15,27 +15,27 @@ extension FileType {
         // * while the reverse domain names are UTIs.
         // * The fallback case is extension, eg.`txt`.
         // Good old Rust match hack.
-        switch () {
-        // An extension starting with a dot.
-        case _ where fileType.starts(with: "."):
-            // Truncate the leading dot.
-            self = .ext(String(fileType.dropFirst()))
-            return
-        // An URL Scheme ending with `://`.
-        case _ where fileType.hasSuffix("://"):
-            // Truncate the suffix `://`.
-            self = .urlScheme(String(fileType.prefix(while: { $0 != ":" })))
-            return
-        // A reverse domain is possibly an UTI.
-        case _ where fileType.isReverseDomain():
-            self = .uti(fileType)
-            return
-        default:
-            self = .ext(fileType)
-            return
-        }
+        self = {
+            switch () {
+            // An extension starting with a dot.
+            case _ where fileType.starts(with: "."):
+                // Truncate the leading dot.
+                return .ext(String(fileType.dropFirst()))
+            // An URL Scheme ending with `://`.
+            case _ where fileType.hasSuffix("://"):
+                // Truncate the suffix `://`.
+                return .urlScheme(String(fileType.prefix(while: { $0 != ":" })))
+            // A reverse domain is possibly an UTI.
+            case _ where fileType.isReverseDomain():
+                return .uti(fileType)
+            default:
+                return .ext(fileType)
+            }
+        }()
     }
+}
 
+extension FileType: CustomStringConvertible {
     public var description: String {
         switch self {
         case let .ext(x): return ".\(x)"
