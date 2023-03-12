@@ -16,8 +16,7 @@ public func getUtiString(
         Log.verbose(
             "The UTI for extention `\(ext)` under `\(parentUti!)` is `\(res as String? ?? "Unknown")`"
         )
-    }
-    else {
+    } else {
         Log.verbose(
             "The preferred UTI for extention `\(ext)` is `\(res as String? ?? "Unknown")`"
         )

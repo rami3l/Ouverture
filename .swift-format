@@ -1,14 +1,12 @@
 {
-    "version": 1,
-    "lineLength": 80,
-    "indentation": {
-        "spaces": 4
-    },
-    "maximumBlankLines": 1,
-    "respectsExistingLineBreaks": true,
-    "lineBreakBeforeControlFlowKeywords": true,
-    "lineBreakBeforeEachArgument": true,
-    "lineBreakAroundMultilineExpressionChainComponents": false,
-    "lineBreakBeforeControlFlowKeywords": true,
-    "prioritizeKeepingFunctionOutputTogether": true,
+  "version": 1,
+  "lineLength": 80,
+  "indentation": {
+    "spaces": 4
+  },
+  "maximumBlankLines": 1,
+  "respectsExistingLineBreaks": true,
+  "lineBreakBeforeEachArgument": true,
+  "lineBreakAroundMultilineExpressionChainComponents": false,
+  "prioritizeKeepingFunctionOutputTogether": true
 }

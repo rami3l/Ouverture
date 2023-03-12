@@ -14,8 +14,7 @@ public func getBundleUrlCandidates(from bundleId: CFString) -> [NSURL]? {
 
 public func getBundleUrl(from bundleId: CFString) -> NSURL? {
     if #available(macOS 10.15, *) {
-    }
-    else {
+    } else {
         Log.error("The result is optimal for macOS 10.15+ only")
     }
 
