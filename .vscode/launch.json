@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Debug ovt",
+      "program": "${workspaceFolder:Ouverture}/.build/debug/ovt",
+      "args": [],
+      "cwd": "${workspaceFolder:Ouverture}",
+      "preLaunchTask": "swift: Build Debug ovt"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "name": "Release ovt",
+      "program": "${workspaceFolder:Ouverture}/.build/release/ovt",
+      "args": [],
+      "cwd": "${workspaceFolder:Ouverture}",
+      "preLaunchTask": "swift: Build Release ovt"
+    }
+  ]
+}

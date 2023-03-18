@@ -28,8 +28,7 @@ extension Ovt {
                     return
                 }
                 print(path)
-            }
-            else {
+            } else {
                 guard
                     let urls = getBundleUrlCandidates(
                         from: bundleId as CFString

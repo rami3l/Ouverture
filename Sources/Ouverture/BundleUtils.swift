@@ -13,10 +13,8 @@ public func getBundleUrlCandidates(from bundleId: CFString) -> [NSURL]? {
 }
 
 public func getBundleUrl(from bundleId: CFString) -> NSURL? {
-    if #available(macOS 10.15, *) {
-    }
-    else {
-        Log.error("The result is optimal for macOS 10.15+ only")
+    if #unavailable(macOS 10.15) {
+        Log.warning("The result is optimal for macOS 10.15+ only")
     }
 
     let candidates = getBundleUrlCandidates(from: bundleId)
@@ -32,7 +30,7 @@ public func getBundleId(
     file: String = "Contents/Info.plist"
 ) -> String? {
     guard #available(macOS 10.11, *) else {
-        Log.error("Function available in macOS 10.11+ only")
+        Log.error("`\(#function)` is available in macOS 10.11+ only")
         return nil
     }
 
@@ -58,7 +56,7 @@ private func readInfoFromBundle(
     subkey: String
 ) -> [String]? {
     guard #available(macOS 10.11, *) else {
-        Log.error("Function available in macOS 10.11+ only")
+        Log.error("\(#function) is available in macOS 10.11+ only")
         return nil
     }
 
@@ -79,8 +77,9 @@ private func readInfoFromBundle(
         return nil
     }
 
-    let res = dicts.map { $0[subkey] as? [String] ?? [] }.reduce(Set<String>())
-    { $0.union($1) }.sorted()
+    let res = dicts.map { $0[subkey] as? [String] ?? [] }
+        .reduce(Set()) { $0.union($1) }
+        .sorted()
 
     Log.verbose("Got `\(subkey)`: \n\(res)")
     return res

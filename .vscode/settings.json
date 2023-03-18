@@ -1,10 +1,4 @@
 {
-    "cSpell.words": [
-        "Ouverture",
-        "macos",
-        "svenstaro",
-        "ty",
-        "uv",
-        "uvɛʀtyʀ"
-    ]
+  "cSpell.words": ["Ouverture", "macos", "svenstaro", "ty", "uv", "uvɛʀtyʀ"],
+  "lldb.library": "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Versions/A/LLDB"
 }
