@@ -23,6 +23,7 @@ builds:
 universal_binaries:
   - replace: true
     id: ouverture
+    name_template: ovt
     hooks:
       post:
         - mkdir -p ./dist/ouverture_darwin_all
